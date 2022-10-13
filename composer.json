@@ -6,15 +6,15 @@
     "autoload": {
         "psr-4": {
             "Oyova\\WpSupport\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
         },
         "files": [
             "src/helpers.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "require": {
         "php": "^7.4"
