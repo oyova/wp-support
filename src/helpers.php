@@ -23,3 +23,17 @@ function oyo_blank($value): bool
 
     return empty($value);
 }
+
+/**
+ * Get an HTML element's attribute value.
+ *
+ * Usage: oyo_element_attr(<a href="example.com">, 'href') yields example.com
+ */
+function oyo_element_attr(string $htmlEl, string $attr): ?string {
+    if (oyo_blank($attr)) {
+        throw new Exception("A valid attr must be provided.");
+    }
+
+    preg_match("/{$attr}=\"(.+?)\"/", $htmlEl, $matches);
+    return $matches[1] ?? null;
+}
