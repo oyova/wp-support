@@ -1,0 +1,12 @@
+{
+    "name": "oyova/wp-support",
+    "description": "General support functionality for Oyova WordPress projects.",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Oyova\\WpSupport\\": "src/"
+        }
+    },
+    "require": {}
+}
