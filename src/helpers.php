@@ -46,7 +46,7 @@ if ( ! function_exists( 'oyo_element_attr' ) ) {
 	}
 }
 
-if( ! function_exists( 'oyo_format_string' ) ) {
+if ( ! function_exists( 'oyo_format_string' ) ) {
 	/**
 	 * Get a string formatted against an array of attribute/value pairs. Values
 	 * are escaped according the first charachter of the attribute name.
@@ -67,10 +67,10 @@ if( ! function_exists( 'oyo_format_string' ) ) {
 	 *     "@title" => "Oyova",
 	 * ] );
 	 */
-	function oyo_format_string( string $string, array $attributes = [] ): string {
+	function oyo_format_string( string $string, array $attributes = array() ): string {
 		// transform arguments before inserting them.
-		foreach( $attributes as $key => $value ) {
-			switch( $key[0] ) {
+		foreach ( $attributes as $key => $value ) {
+			switch ( $key[0] ) {
 
 				case '!':
 					// leave value un-escaped
@@ -78,17 +78,17 @@ if( ! function_exists( 'oyo_format_string' ) ) {
 
 				case '#':
 					// url escape value
-					$attributes[$key] = esc_url( $value );
+					$attributes[ $key ] = esc_url( $value );
 					break;
 
 				case ':':
 					// attr escape value
-					$attributes[$key] = esc_attr( $value );
+					$attributes[ $key ] = esc_attr( $value );
 					break;
 
 				default:
 					// html escape value
-					$attributes[$key] = esc_html( $value );
+					$attributes[ $key ] = esc_html( $value );
 					break;
 			}
 		}
