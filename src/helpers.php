@@ -34,5 +34,10 @@ function oyo_element_attr( string $html_el, string $attr ): ?string {
 	}
 
 	preg_match( "/{$attr}=\"(.+?)\"/", $html_el, $matches );
-	return $matches[1] ?? null;
+
+	if ( ! isset( $matches[1] ) || oyo_blank( $matches[1] ) ) {
+		return null;
+	}
+
+	return $matches[1];
 }
