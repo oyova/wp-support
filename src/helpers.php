@@ -1,32 +1,32 @@
 <?php
 
 /**
- * Determine if the given value is "blank."
+ * Determine if the given value is "blank." E.g. empty string or array
  */
-function oyo_blank( $value ): bool {
-	if ( is_null( $value ) ) {
+function oyo_blank( $val ): bool {
+	if ( is_null( $val ) ) {
 		return true;
 	}
 
-	if ( is_string( $value ) ) {
-		return trim( $value ) === '';
+	if ( is_string( $val ) ) {
+		return trim( $val ) === '';
 	}
 
-	if ( is_numeric( $value ) || is_bool( $value ) ) {
+	if ( is_numeric( $val ) || is_bool( $val ) ) {
 		return false;
 	}
 
-	if ( $value instanceof Countable ) {
-		return count( $value ) === 0;
+	if ( $val instanceof Countable ) {
+		return count( $val ) === 0;
 	}
 
-	return empty( $value );
+	return empty( $val );
 }
 
 /**
- * Get an HTML element's attribute value.
+ * Get an attribute's value for an HTML element.
  *
- * Usage: oyo_element_attr(<a href="example.com">, 'href') yields example.com
+ * Usage: oyo_element_attr('<a href="example.com">', 'href') yields example.com
  */
 function oyo_element_attr( string $html_el, string $attr ): ?string {
 	if ( oyo_blank( $attr ) ) {
