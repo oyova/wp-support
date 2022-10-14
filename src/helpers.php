@@ -48,17 +48,21 @@ if ( ! function_exists( 'oyo_element_attr' ) ) {
 
 if ( ! function_exists( 'oyo_format_string' ) ) {
 	/**
-	 * Get a string formatted against an array of attribute/value pairs. Values
-	 * are escaped according the first charachter of the attribute name.
-	 *
-	 * Attribute name parsing:
-	 * @ - Uses esc_html()
-	 * # - Uses esc_url()
-	 * : - Uses esc_attr()
-	 * ! - Unescaped: Only use content that has been sanitized already.
+	 * Format a string against an associative array of key/value pairs. Anywhere
+	 * in $string that a key from $attributes appears the corresponding value will
+	 * be insterted and escaped.
 	 *
 	 * @param string $string The string to format
-	 * @param array  $attributes The array of attribute/value pairs
+	 * @param array  $attributes The array of key/value pairs.
+	 *
+	 * Key prefix and value escape functions:
+	 * "@" will use esc_html().
+	 * "#" will use esc_url().
+	 * ":" will use esc_attr().
+	 * "!" will be unescaped and should only be used when the value has already
+	 * been sanitized for output.
+	 *
+	 * @return string The formatted string
 	 *
 	 * Example Usage:
 	 * echo oyo_format_string( '<a href="#url" title=":title">@title</a>', [
