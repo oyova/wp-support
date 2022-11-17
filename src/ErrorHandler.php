@@ -29,6 +29,7 @@ class ErrorHandler {
 					new PrettyPageHandler()
 				)
 			);
+			$whoops->silenceErrorsInPaths('/./', E_DEPRECATED);
 			$whoops->register();
 		}
 	}
