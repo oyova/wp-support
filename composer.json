@@ -20,6 +20,7 @@
         "php": ">=8.0"
     },
     "require-dev": {
+        "filp/whoops": "^2.14",
         "phpunit/phpunit": "^9.5",
         "symfony/var-dumper": "^6.0"
     },
