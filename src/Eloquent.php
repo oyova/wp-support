@@ -17,12 +17,8 @@ class Eloquent {
 				'database'  => DB_NAME,
 				'username'  => DB_USER,
 				'password'  => DB_PASSWORD,
-				'charset'   => defined( 'DB_CHARSET' ) ?
-					DB_CHARSET :
-					'utf8mb4',
-				'collation' => defined( 'DB_COLLATE' ) ?
-					DB_COLLATE :
-					'utf8mb4_unicode_ci',
+				'charset'   => 'utf8mb4',
+				'collation' => 'utf8mb4_unicode_ci',
 				'prefix'    => 'wp_',
 			)
 		);
