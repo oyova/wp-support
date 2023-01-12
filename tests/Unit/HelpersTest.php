@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use PHPUnit\Framework\TestCase;
 
 class HelpersTest extends TestCase {
-
 	public function test_oyo_blank_works_correctly(): void {
 		$this->assertTrue( oyo_blank( null ) );
 		$this->assertTrue( oyo_blank( '' ) );

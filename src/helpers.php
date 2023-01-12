@@ -10,7 +10,7 @@ if ( ! function_exists( 'oyo_blank' ) ) {
 		}
 
 		if ( is_string( $val ) ) {
-			return trim( $val ) === '';
+			return '' === trim( $val );
 		}
 
 		if ( is_numeric( $val ) || is_bool( $val ) ) {
@@ -18,7 +18,7 @@ if ( ! function_exists( 'oyo_blank' ) ) {
 		}
 
 		if ( $val instanceof Countable ) {
-			return count( $val ) === 0;
+			return 0 === count( $val );
 		}
 
 		return empty( $val );
@@ -75,7 +75,6 @@ if ( ! function_exists( 'oyo_format_string' ) ) {
 		// transform arguments before inserting them.
 		foreach ( $attributes as $key => $value ) {
 			switch ( $key[0] ) {
-
 				case '!':
 					// leave value un-escaped
 					break;
