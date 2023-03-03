@@ -116,7 +116,7 @@ if ( ! function_exists( 'oyo_nl2_separator' ) ) {
 		$lines = preg_split( "/\r\n|\n|\r/", $string );
 
 		if ( $trim_lines ) {
-			$lines = array_map( function( $line ) {
+			$lines = array_map( function ( $line ) {
 				return trim( $line );
 			}, $lines );
 		}
@@ -125,11 +125,11 @@ if ( ! function_exists( 'oyo_nl2_separator' ) ) {
 			return $string;
 		}
 
-		if ( empty( $separator_2) ) {
+		if ( empty( $separator_2 ) ) {
 			return implode( $separator_1, $lines );
 		}
 
-		$lines = array_map( function( $line ) use ( $separator_1, $separator_2 ) {
+		$lines = array_map( function ( $line ) use ( $separator_1, $separator_2 ) {
 			return $separator_1 . $line . $separator_2;
 		}, $lines );
 

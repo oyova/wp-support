@@ -3,10 +3,9 @@
 namespace Oyova\WpSupport\Acf\Blocks;
 
 class Block {
-
 	public $block = null;
 
-	function __construct( array $block ) {
+	public function __construct( array $block ) {
 		$this->block = $block;
 	}
 
@@ -30,7 +29,7 @@ class Block {
 		return oyo_format_string(
 			'</!type>',
 			array(
-				'!type' => $type
+				'!type' => $type,
 			)
 		);
 	}
@@ -48,15 +47,15 @@ class Block {
 	}
 
 	public function get_element_type() {
-		if( ! isset( $this->block['element_type'] ) ) {
+		if ( ! isset( $this->block['element_type'] ) ) {
 			return 'div';
 		}
 
-		if( ! is_string( $this->block['element_type'] ) ) {
+		if ( ! is_string( $this->block['element_type'] ) ) {
 			return 'div';
 		}
 
-		if( ! ctype_alpha( $this->block['element_type'] ) ) {
+		if ( ! ctype_alpha( $this->block['element_type'] ) ) {
 			return 'div';
 		}
 
@@ -77,8 +76,8 @@ class Block {
 			return $styles;
 		}
 
-		foreach( $this->block['style']['spacing']['margin'] as $key => $margin ) {
-			if( str_contains( $margin, 'var:' ) ) {
+		foreach ( $this->block['style']['spacing']['margin'] as $key => $margin ) {
+			if ( str_contains( $margin, 'var:' ) ) {
 				$margin   = str_replace( array( 'var:', '|' ), array( '', '--' ), $margin );
 				$styles[] = sprintf( 'margin-%s:var(--wp--%s)', $key, $margin );
 			} else {
@@ -96,8 +95,8 @@ class Block {
 			return $styles;
 		}
 
-		foreach( $this->block['style']['spacing']['padding'] as $key => $padding ) {
-			if( str_contains( $padding, 'var:' ) ) {
+		foreach ( $this->block['style']['spacing']['padding'] as $key => $padding ) {
+			if ( str_contains( $padding, 'var:' ) ) {
 				$padding  = str_replace( array( 'var:', '|' ), array( '', '--' ), $padding );
 				$styles[] = sprintf( 'padding-%s:var(--wp--%s)', $key, $padding );
 			} else {
@@ -107,5 +106,4 @@ class Block {
 
 		return $styles;
 	}
-
 }
