@@ -9,14 +9,10 @@ use Whoops\Run as WhoopsRun;
 use Whoops\Util\Misc as WhoopsMisc;
 
 class ErrorHandler {
-
 	public function __construct() {
 		if (
-			defined( 'WP_DEBUG' ) &&
-			WP_DEBUG &&
-			(
-				! defined( 'WP_DEBUG_DISPLAY' ) ||
-				WP_DEBUG_DISPLAY
+			defined( 'WP_DEBUG' ) && WP_DEBUG && (
+				! defined( 'WP_DEBUG_DISPLAY' ) || WP_DEBUG_DISPLAY
 			)
 		) {
 			$whoops = new WhoopsRun();

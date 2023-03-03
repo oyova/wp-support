@@ -22,6 +22,7 @@
     "require-dev": {
         "filp/whoops": "^2.14",
         "illuminate/database": "^9.40",
+        "oyova/php-cs-fixer": "^1.2",
         "phpunit/phpunit": "^9.5",
         "symfony/var-dumper": "^6.0"
     },

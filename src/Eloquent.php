@@ -5,9 +5,7 @@ namespace Oyova\WpSupport;
 use Illuminate\Database\Capsule\Manager as DatabaseManager;
 
 class Eloquent {
-
 	public function boot(): void {
-
 		$database_manager = new DatabaseManager();
 
 		$database_manager->addConnection(
