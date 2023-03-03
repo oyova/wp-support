@@ -100,3 +100,91 @@ if ( ! function_exists( 'oyo_format_string' ) ) {
 		return strtr( $string, $attributes );
 	}
 }
+
+if ( ! function_exists( 'oyo_nl2_separator' ) ) {
+	/**
+	 * Insert a string at the end of each line in a string or at both the
+	 * beggining and end of each line in a string.
+	 *
+	 * @param string $string The input string
+	 * @param string $separator_1 The ending separator or beggining separator when $separator_2 is not empty
+	 * @param string $separator_2 The ending separator
+	 * @param bool   $trim_lines Trim whitespace from each line or not
+	 *
+	 * @return string The updated string
+	 */
+	function oyo_nl2_separator( string $string, string $separator_1, string $separator_2 = '', bool $trim_lines = false ): string {
+		$lines = preg_split( "/\r\n|\n|\r/", $string );
+
+		if ( $trim_lines ) {
+			$lines = array_map( function( $line ) {
+				return trim( $line );
+			}, $lines );
+		}
+
+		if ( empty( $separator_1 ) ) {
+			return $string;
+		}
+
+		if ( empty( $separator_2) ) {
+			return implode( $separator_1, $lines );
+		}
+
+		$lines = array_map( function( $line ) use ( $separator_1, $separator_2 ) {
+			return $separator_1 . $line . $separator_2;
+		}, $lines );
+
+		return implode( '', $lines );
+	}
+}
+
+if ( ! function_exists( 'oyo_get_link' ) ) {
+	/**
+	 * Return a fromatted HTML <a> element.
+	 *
+	 * @param mixed $link_data
+	 * @param array $options
+	 *
+	 * @return string The formatted HTML <a> element or empty string
+	 */
+	function oyo_get_link( $link_data, array $options = array() ): string {
+		if ( ! is_array( $link_data ) || ! isset( $link_data['url'] ) ) {
+			return '';
+		}
+
+		if ( ! isset( $link_data['title'] ) || empty( $link_data['title'] ) ) {
+			$link_data['title'] = $link_data['url'];
+		}
+
+		if ( ! isset( $link_data['target'] ) ) {
+			$link_data['target'] = '';
+		}
+
+		if ( isset( $options['class'] ) && is_string( $options['class'] ) ) {
+			$class = $options['class'];
+		} else {
+			$class = '';
+		}
+
+		if ( isset( $options['id'] ) && is_string( $options['id'] ) ) {
+			$id = $options['id'];
+		} else {
+			$id = '';
+		}
+
+		$replacements = array(
+			'#url'    => $link_data['url'],
+			'@title'  => $link_data['title'],
+			':target' => $link_data['target'],
+			':class'  => $class,
+			':id'     => $id,
+		);
+
+		return oyo_format_string('
+			<a href="#url" target=":target" class=":class" id=":id">
+				@title
+			</a>',
+			$replacements
+		);
+	}
+}
