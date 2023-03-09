@@ -76,9 +76,7 @@ class Block {
 			$this->get_wp_styles(),
 		);
 	}
-
-
-
+	
 	public function get_wp_styles(): array {
 		$styles = array();
 
