@@ -37,7 +37,7 @@ class Block {
 	}
 
 	public function get_element_class(): string {
-		return 'c-' . sanitize_title( $this->block['title'] );
+		return implode( ' ', $this->get_classes() );
 	}
 
 	public function get_element_style(): string {
@@ -77,6 +77,23 @@ class Block {
 		);
 	}
 
+	public function get_classes(): array {
+		$classes      = array();
+		$user_classes = array();
+		$wp_class     = $this->get_wp_class();
+
+		$classes[] = 'c-' . sanitize_title( $this->block['title'] );
+
+		if ( isset( $this->block['user_class'] ) && is_array( $this->block['user_class'] ) ) {
+			$classes = array_merge( $classes, $this->block['user_class'] );
+		}
+
+		return array_merge(
+			$classes,
+			$wp_class
+		);
+	}
+
 	public function get_wp_styles(): array {
 		$styles = array();
 
@@ -88,5 +105,15 @@ class Block {
 		}
 
 		return $styles;
+	}
+
+	public function get_wp_class(): array {
+		$class = array();
+
+		if ( isset( $this->block['className'] ) ) {
+			$class[] = $this->block['className'];
+		}
+
+		return $class;
 	}
 }
