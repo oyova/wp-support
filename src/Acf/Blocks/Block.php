@@ -9,7 +9,11 @@ class Block {
 		$this->block = $block;
 	}
 
-	public function get_element_open(): string {
+	public function get_element_open( string $type = '' ): string {
+		if( ! empty( $type ) ) {
+			$this->block['element_type'] = $type;
+		}
+
 		$type = $this->get_element_type();
 
 		return oyo_format_string(
