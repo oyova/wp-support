@@ -35,7 +35,9 @@ class Block {
 	}
 
 	public function get_element_class(): string {
-		return 'c-' . sanitize_title( $this->block['title'] );
+		$classes = explode( ' ', $this->block['className'] );
+		$classes = array_map( 'esc_attr', $classes );
+		return 'c-' . sanitize_title( $this->block['title'] ) . ' ' . implode( ' ', $classes );
 	}
 
 	public function get_element_style(): string {
