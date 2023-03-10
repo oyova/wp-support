@@ -35,8 +35,11 @@ class Block {
 	}
 
 	public function get_element_class(): string {
-		$classes = explode( ' ', $this->block['className'] );
-		$classes = array_map( 'esc_attr', $classes );
+		$classes = '';
+		if ( isset( $this->block['className'] ) ) {
+			$classes = explode( ' ', $this->block['className'] );
+			$classes = array_map( 'esc_attr', $classes );
+		}
 		return 'c-' . sanitize_title( $this->block['title'] ) . ' ' . implode( ' ', $classes );
 	}
 
