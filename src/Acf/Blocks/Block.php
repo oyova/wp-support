@@ -116,6 +116,10 @@ class Block {
 			$class[] = $attributes['class'];
 		}
 
+		if( isset( $this->block['alignText'] ) ) {
+			$class[] = 'has-text-align-' . $this->block['alignText'];
+		}
+
 		return $class;
 	}
 }
