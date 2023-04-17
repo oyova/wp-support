@@ -110,8 +110,10 @@ class Block {
 	public function get_wp_class(): array {
 		$class = array();
 
-		if ( isset( $this->block['className'] ) ) {
-			$class[] = $this->block['className'];
+		$attributes = WP_Block_Supports::get_instance()->apply_block_supports();
+
+		if( isset( $attributes['class'] ) ) {
+			$class[] = $attributes['class'];
 		}
 
 		return $class;
