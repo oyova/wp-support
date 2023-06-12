@@ -19,7 +19,7 @@ class Block {
 			array(
 				'!type'  => $type,
 				':id'    => $this->get_element_id(),
-				':class' => $this->get_element_class(),
+				':class' => $this->get_element_classes(),
 				':style' => $this->get_element_style(),
 			)
 		);
@@ -36,7 +36,7 @@ class Block {
 		);
 	}
 
-	public function get_element_class(): string {
+	public function get_element_classes(): string {
 		return implode( ' ', $this->get_classes() );
 	}
 
@@ -80,7 +80,7 @@ class Block {
 	public function get_classes(): array {
 		$classes      = array();
 		$user_classes = array();
-		$wp_class     = $this->get_wp_class();
+		$wp_classes   = $this->get_wp_classes();
 
 		$classes[] = 'c-' . sanitize_title( $this->block['title'] );
 
@@ -90,7 +90,7 @@ class Block {
 
 		return array_merge(
 			$classes,
-			$wp_class
+			$wp_classes
 		);
 	}
 
@@ -107,7 +107,7 @@ class Block {
 		return $styles;
 	}
 
-	public function get_wp_class(): array {
+	public function get_wp_classes(): array {
 		$class = array();
 
 		$attributes = WP_Block_Supports::get_instance()->apply_block_supports();
