@@ -2,26 +2,85 @@
 
 if ( ! function_exists( 'oyo_blank' ) ) {
 	/**
-	 * Determine if the given value is "blank." E.g. empty string or array
+	 * Determine if the given value is "blank".
+	 * Credit to Laravel for this function.
 	 */
-	function oyo_blank( $val ): bool {
-		if ( is_null( $val ) ) {
+	function oyo_blank( mixed $value ): bool {
+		if ( is_null( $value ) ) {
 			return true;
 		}
 
-		if ( is_string( $val ) ) {
-			return '' === trim( $val );
+		if ( is_string( $value ) ) {
+			return '' === trim( $value );
 		}
 
-		if ( is_numeric( $val ) || is_bool( $val ) ) {
+		if ( is_numeric( $value ) || is_bool( $value ) ) {
 			return false;
 		}
 
-		if ( $val instanceof Countable ) {
-			return 0 === count( $val );
+		if ( $value instanceof Countable ) {
+			return 0 === count( $value );
 		}
 
-		return empty( $val );
+		return empty( $value );
+	}
+}
+
+if ( ! function_exists( 'oyo_filled' ) ) {
+	/**
+	 * Determine if a value is "filled".
+	 * Credit to Laravel for this function.
+	 */
+	function oyo_filled( mixed $value ): bool {
+		return ! oyo_blank( $value );
+	}
+}
+
+if ( ! function_exists( 'oyo_throw_if' ) ) {
+	/**
+	 * Throw the given exception if the given condition is true.
+	 * Credit to Laravel for this function.
+	 *
+	 * @param string|\Throwable $exception
+	 *
+	 * @throws \Throwable
+	 */
+	function oyo_throw_if(
+		mixed $condition,
+		string|Exception $exception = 'RuntimeException',
+		mixed ...$parameters
+	) {
+		if ( $condition ) {
+			if ( is_string( $exception ) && class_exists( $exception ) ) {
+				$exception = new $exception( ...$parameters );
+			}
+
+			throw is_string( $exception )
+				? new RuntimeException( $exception )
+				: $exception;
+		}
+
+		return $condition;
+	}
+}
+
+if ( ! function_exists( 'oyo_throw_unless' ) ) {
+	/**
+	 * Throw the given exception unless the given condition is true.
+	 * Credit to Laravel for this function.
+	 *
+	 * @param string|\Throwable $exception
+	 *
+	 * @throws \Throwable
+	 */
+	function oyo_throw_unless(
+		mixed $condition,
+		string|Exception $exception = 'RuntimeException',
+		mixed ...$parameters
+	) {
+		oyo_throw_if( ! $condition, $exception, ...$parameters );
+
+		return $condition;
 	}
 }
 
@@ -29,7 +88,8 @@ if ( ! function_exists( 'oyo_element_attr' ) ) {
 	/**
 	 * Get an attribute's value for an HTML element.
 	 *
-	 * Usage: oyo_element_attr('<a href="example.com">', 'href') yields example.com
+	 * Usage: oyo_element_attr('<a href="example.com">', 'href') yields
+	 * example.com
 	 */
 	function oyo_element_attr( string $html_el, string $attr ): ?string {
 		if ( oyo_blank( $attr ) ) {
@@ -49,10 +109,10 @@ if ( ! function_exists( 'oyo_element_attr' ) ) {
 if ( ! function_exists( 'oyo_format_string' ) ) {
 	/**
 	 * Format a string against an associative array of key/value pairs. Anywhere
-	 * in $string that a key from $attributes appears the corresponding value will
-	 * be insterted and escaped.
+	 * in $string that a key from $attributes appears the corresponding value
+	 * will be inserted and escaped.
 	 *
-	 * @param string $string The string to format
+	 * @param string $string     The string to format
 	 * @param array  $attributes The array of key/value pairs.
 	 *
 	 * Key prefix and value escape functions:
@@ -71,7 +131,10 @@ if ( ! function_exists( 'oyo_format_string' ) ) {
 	 *     "@title" => "Oyova",
 	 * ] );
 	 */
-	function oyo_format_string( string $string, array $attributes = array() ): string {
+	function oyo_format_string(
+		string $string,
+		array $attributes = array()
+	): string {
 		// transform arguments before inserting them.
 		foreach ( $attributes as $key => $value ) {
 			switch ( $key[0] ) {
